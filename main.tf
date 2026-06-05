@@ -88,6 +88,10 @@ resource "aws_instance" "k8s_node" {
   user_data = <<-EOF
     #!/bin/bash
     set -e
+    
+    # Ép biến môi trường chuẩn cho root
+    export HOME=/root
+    export KUBECONFIG=/root/.kube/config
 
     # Docker installation
     apt-get update
@@ -117,8 +121,8 @@ resource "aws_instance" "k8s_node" {
         protocol: TCP
     EOT
 
-    # Kind initialization
-    kind create cluster --config /root/kind-config.yaml
+    # Kind initialization (Ép lưu config vào đúng chỗ)
+    kind create cluster --config /root/kind-config.yaml --kubeconfig /root/.kube/config
 
     # Manifest creation for App and Service
     cat << 'EOT' > /root/app.yaml
