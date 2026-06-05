@@ -1,0 +1,17 @@
+# Ignore the plugin dirs of Terraform
+**/.terraform/*
+
+# Ignore state file and secret files
+*.tfstate
+*.tfstate.*
+
+# Ignore files that includes environment variables
+*.tfvars
+*.tfvars.json
+
+# Ignore crash log file
+crash.log
+crash.*.log
+
+# Ignore private keys
+k8s-challenge-key.pem
